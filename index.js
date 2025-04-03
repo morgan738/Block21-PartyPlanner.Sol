@@ -12,7 +12,7 @@ const render = () => {
                 <p>Description: ${event.description} </p>
                 <p>Location: ${event.location}</p>
                 <p>Date: ${event.date}</p>
-                <button class="deleteButton" name=${idx} id=${event.id}>Delete</button>
+                <button class="deleteButton" data-partyIdx=${idx} id=${event.id}>Delete</button>
             </li>
         `
     })
@@ -71,13 +71,13 @@ partyList.addEventListener("click", async (event) => {
     
     if(event.target.classList.contains("deleteButton")){
         const partyId = event.target.id
-        console.log(event.target)
+        console.log(event.target.dataset)
         try {
             const response = await fetch(`https://fsa-crud-2aa9294fe819.herokuapp.com/api/2501-ftb-et-web-pm/events/${partyId}`, {
                 method: "DELETE"
             })
             console.log(response)
-            parties.splice(event.target.name, 1)
+            parties.splice(event.target.dataset.partyidx, 1)
             render()
         } catch (error) {
             console.error(error)
